@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/waitlist_submit.php",
+      "destination": "https://spida.africa/waitlist_submit.php"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
