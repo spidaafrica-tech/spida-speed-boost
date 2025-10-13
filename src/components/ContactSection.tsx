@@ -113,7 +113,7 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="p-8 shadow-elegant">
-              <form action="https://spida.africa/api/waitlist_submit.php" method="post" className="space-y-6">
+              <form action="https://spida.africa/waitlist_submit.php" method="post" className="space-y-6">
                 <input type="hidden" name="list_name" value="contact_form" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>

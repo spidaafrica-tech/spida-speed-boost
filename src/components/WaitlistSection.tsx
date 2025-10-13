@@ -187,7 +187,7 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form 
-                      action="https://spida.africa/api/waitlist_submit.php" 
+                      action="https://spida.africa/waitlist_submit.php" 
                       method="post" 
                       onSubmit={handleIndividualSubmit} 
                       className="space-y-4"
@@ -289,7 +289,7 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form 
-                      action="https://spida.africa/api/waitlist_submit.php" 
+                      action="https://spida.africa/waitlist_submit.php" 
                       method="post" 
                       onSubmit={handleCompanySubmit} 
                       className="space-y-4"
