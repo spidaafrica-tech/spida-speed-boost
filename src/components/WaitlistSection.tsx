@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ShoppingCart, Building2, ArrowRight, CheckCircle, Truck, Percent } from "lucide-react";
+import { ShoppingCart, Building2, ArrowRight, CheckCircle, Truck, Percent, AlertCircle } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { validateForm, sanitizeInput, ValidationResult } from "@/utils/validation";
 
 const WaitlistSection = () => {
   const [individualFormData, setIndividualFormData] = useState({
@@ -23,27 +23,6 @@ const WaitlistSection = () => {
   });
   const [isIndividualOpen, setIsIndividualOpen] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
-  const { toast } = useToast();
-
-  const handleIndividualSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Welcome to SPIDA!",
-      description: "Thank you for joining our waitlist as a customer. You'll be the first to know when we launch!",
-    });
-    setIndividualFormData({ name: "", email: "", phone: "" });
-    setIsIndividualOpen(false);
-  };
-
-  const handleCompanySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Welcome to SPIDA!",
-      description: "Thank you for joining our waitlist as a business partner. You'll be the first to know when we launch!",
-    });
-    setCompanyFormData({ name: "", company: "", email: "", phone: "", companyType: "" });
-    setIsCompanyOpen(false);
-  };
 
   const handleIndividualChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIndividualFormData({
@@ -66,8 +45,71 @@ const WaitlistSection = () => {
     });
   };
 
+  const [individualErrors, setIndividualErrors] = useState<string[]>([]);
+  const [companyErrors, setCompanyErrors] = useState<string[]>([]);
+
+  const handleIndividualSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Sanitize inputs
+    const sanitizedData = {
+      name: sanitizeInput(individualFormData.name),
+      email: sanitizeInput(individualFormData.email),
+      phone: sanitizeInput(individualFormData.phone)
+    };
+    
+    // Validate form
+    const validation: ValidationResult = validateForm(sanitizedData);
+    
+    if (!validation.isValid) {
+      setIndividualErrors(validation.errors);
+      return;
+    }
+    
+    // Clear errors
+    setIndividualErrors([]);
+    
+    // For development - show success message
+    alert(`Individual waitlist submission:\nName: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\nPhone: ${sanitizedData.phone}`);
+    
+    // Clear form
+    setIndividualFormData({ name: "", email: "", phone: "" });
+    setIsIndividualOpen(false);
+  };
+
+  const handleCompanySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Sanitize inputs
+    const sanitizedData = {
+      name: sanitizeInput(companyFormData.name),
+      company: sanitizeInput(companyFormData.company),
+      email: sanitizeInput(companyFormData.email),
+      phone: sanitizeInput(companyFormData.phone),
+      companyType: companyFormData.companyType
+    };
+    
+    // Validate form
+    const validation: ValidationResult = validateForm(sanitizedData);
+    
+    if (!validation.isValid) {
+      setCompanyErrors(validation.errors);
+      return;
+    }
+    
+    // Clear errors
+    setCompanyErrors([]);
+    
+    // For development - show success message
+    alert(`Company waitlist submission:\nName: ${sanitizedData.name}\nCompany: ${sanitizedData.company}\nEmail: ${sanitizedData.email}\nPhone: ${sanitizedData.phone}\nType: ${sanitizedData.companyType}`);
+    
+    // Clear form
+    setCompanyFormData({ name: "", company: "", email: "", phone: "", companyType: "" });
+    setIsCompanyOpen(false);
+  };
+
   return (
-    <section className="py-20 bg-gradient-subtle">
+    <section id="waitlist" className="py-20 bg-gradient-subtle">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -157,28 +199,46 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleIndividualSubmit} className="space-y-4">
+                      {individualErrors.length > 0 && (
+                        <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
+                          <div className="flex items-center space-x-2 text-destructive">
+                            <AlertCircle className="w-4 h-4" />
+                            <span className="text-sm font-medium">Please fix the following errors:</span>
+                          </div>
+                          <ul className="mt-2 text-sm text-destructive space-y-1">
+                            {individualErrors.map((error, index) => (
+                              <li key={index}>• {error}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
                       <Input
-                        name="name"
+                        name="full_name"
                         placeholder="Full Name"
                         value={individualFormData.name}
-                        onChange={handleIndividualChange}
+                        onChange={(e) => setIndividualFormData({...individualFormData, name: e.target.value})}
                         required
+                        className={individualErrors.some(e => e.includes('Name')) ? 'border-destructive' : ''}
                       />
                       <Input
                         name="email"
                         type="email"
                         placeholder="Email Address"
                         value={individualFormData.email}
-                        onChange={handleIndividualChange}
+                        onChange={(e) => setIndividualFormData({...individualFormData, email: e.target.value})}
                         required
+                        className={individualErrors.some(e => e.includes('email')) ? 'border-destructive' : ''}
                       />
                       <Input
                         name="phone"
+                        type="tel"
                         placeholder="Phone Number"
                         value={individualFormData.phone}
-                        onChange={handleIndividualChange}
-                        required
+                        onChange={(e) => setIndividualFormData({...individualFormData, phone: e.target.value})}
+                        className={individualErrors.some(e => e.includes('phone')) ? 'border-destructive' : ''}
                       />
+                      <input type="text" name="company" style={{display: 'none'}} />
                       <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow">
                         Join Waitlist
                       </Button>
@@ -234,18 +294,33 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleCompanySubmit} className="space-y-4">
+                      {companyErrors.length > 0 && (
+                        <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
+                          <div className="flex items-center space-x-2 text-destructive">
+                            <AlertCircle className="w-4 h-4" />
+                            <span className="text-sm font-medium">Please fix the following errors:</span>
+                          </div>
+                          <ul className="mt-2 text-sm text-destructive space-y-1">
+                            {companyErrors.map((error, index) => (
+                              <li key={index}>• {error}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
                       <Input
-                        name="name"
+                        name="full_name"
                         placeholder="Contact Person Name"
                         value={companyFormData.name}
-                        onChange={handleCompanyChange}
+                        onChange={(e) => setCompanyFormData({...companyFormData, name: e.target.value})}
                         required
+                        className={companyErrors.some(e => e.includes('Name')) ? 'border-destructive' : ''}
                       />
                       <Input
-                        name="company"
+                        name="company_name"
                         placeholder="Company Name"
                         value={companyFormData.company}
-                        onChange={handleCompanyChange}
+                        onChange={(e) => setCompanyFormData({...companyFormData, company: e.target.value})}
                         required
                       />
                       <Select value={companyFormData.companyType} onValueChange={handleCompanyTypeChange} required>
@@ -267,16 +342,17 @@ const WaitlistSection = () => {
                         type="email"
                         placeholder="Business Email"
                         value={companyFormData.email}
-                        onChange={handleCompanyChange}
+                        onChange={(e) => setCompanyFormData({...companyFormData, email: e.target.value})}
                         required
                       />
                       <Input
                         name="phone"
+                        type="tel"
                         placeholder="Phone Number"
                         value={companyFormData.phone}
-                        onChange={handleCompanyChange}
-                        required
+                        onChange={(e) => setCompanyFormData({...companyFormData, phone: e.target.value})}
                       />
+                      <input type="text" name="company" style={{display: 'none'}} />
                       <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow">
                         Join Waitlist
                       </Button>

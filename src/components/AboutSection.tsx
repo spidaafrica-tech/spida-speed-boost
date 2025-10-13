@@ -109,6 +109,7 @@ const AboutSection = () => {
             size="lg" 
             variant="outline" 
             className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+            onClick={() => window.location.assign('/blog')}
           >
             Learn More About Our Journey
           </Button>

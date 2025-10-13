@@ -3,8 +3,11 @@ import Footer from "@/components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { SEO, SEOConfigs } from "@/components/SEO";
+import { useNavigate } from "react-router-dom";
 
 const FAQ = () => {
+  const navigate = useNavigate();
   const faqs = [
     {
       question: "What is SPIDA's mission?",
@@ -102,7 +105,20 @@ const FAQ = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Our team is here to help you understand how SPIDA can transform your farming operations
               </p>
-              <Button size="lg" className="bg-gradient-primary hover:shadow-glow">
+              <Button 
+                size="lg" 
+                className="bg-gradient-primary hover:shadow-glow" 
+                onClick={() => {
+                  navigate('/#contact');
+                  // Scroll to contact section after navigation
+                  setTimeout(() => {
+                    const contactElement = document.getElementById('contact');
+                    if (contactElement) {
+                      contactElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
+              >
                 Contact Our Team
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

@@ -6,10 +6,12 @@ import AboutSection from "@/components/AboutSection";
 import WaitlistSection from "@/components/WaitlistSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { SEO, SEOConfigs } from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...SEOConfigs.home} />
       <Header />
       <main>
         <Hero />

@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -13,21 +12,12 @@ const ContactSection = () => {
     subject: "",
     message: ""
   });
-  const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for your interest. We'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const fieldName = e.target.name === 'full_name' ? 'name' : e.target.name;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [fieldName]: e.target.value
     });
   };
 
@@ -123,7 +113,10 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="p-8 shadow-elegant">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form action="/waitlist_submit.php" method="post" className="space-y-6">
+                <input type="hidden" name="list_name" value="contact_form" />
+                <input type="hidden" name="subject" value={formData.subject} />
+                <input type="hidden" name="message" value={formData.message} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -131,7 +124,7 @@ const ContactSection = () => {
                     </label>
                     <Input
                       id="name"
-                      name="name"
+                      name="full_name"
                       type="text"
                       value={formData.name}
                       onChange={handleChange}

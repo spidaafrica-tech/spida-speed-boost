@@ -2,10 +2,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Users, TrendingUp } from "lucide-react";
+import { SEO, SEOConfigs } from "@/components/SEO";
 
 const About = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...SEOConfigs.about} />
       <Header />
       <main>
         {/* Hero Section */}
@@ -79,7 +81,7 @@ const About = () => {
                 and from surviving to thriving. We envision an Africa where every farmer 
                 prospers through technology-enabled agriculture.
               </p>
-              <Button size="lg" className="bg-gradient-primary hover:shadow-glow">
+              <Button size="lg" className="bg-gradient-primary hover:shadow-glow" onClick={() => window.location.assign('/#waitlist')}>
                 Join Our Mission
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

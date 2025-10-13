@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle, Smartphone, Satellite, TrendingUp, Shield, Zap } from "lucide-react";
-import techImage from "@/assets/tech-icons.jpg";
+import techImage from "@/assets/tech-icons.png";
 
 const SolutionSection = () => {
   const solutions = [
@@ -118,6 +118,7 @@ const SolutionSection = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                onClick={() => window.location.assign('/#waitlist')}
               >
                 Join 10,000+ Farmers
               </Button>

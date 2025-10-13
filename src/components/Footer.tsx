@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SpidaLogo from "./SpidaLogo";
 
@@ -12,19 +12,15 @@ const Footer = () => {
       { name: "About Us", href: "/about", section: null },
       { name: "Our Mission", href: "/#about", section: "about" },
       { name: "Leadership", href: "/about#leadership", section: "leadership" },
-      { name: "Careers", href: "#", section: null }
+      { name: "Careers", href: "/careers", section: null }
     ],
     solutions: [
       { name: "Products", href: "/products", section: null },
-      { name: "Digital Platform", href: "/products", section: null },
-      { name: "Smart Agriculture", href: "/products", section: null },
-      { name: "Market Access", href: "/products", section: null }
+      { name: "Smart Agriculture", href: "/products#spioptima", section: "spioptima" }
     ],
     resources: [
       { name: "Blog", href: "/blog", section: null },
-      { name: "FAQ", href: "/faq", section: null },
-      { name: "Documentation", href: "#", section: null },
-      { name: "Support", href: "/#contact", section: "contact" }
+      { name: "FAQ", href: "/faq", section: null }
     ]
   };
 
@@ -113,6 +109,47 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-4 h-4 text-accent" />
                   <span className="text-sm">Lagos, Nigeria</span>
+                </div>
+              </div>
+
+              {/* Social Media */}
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+                <div className="flex items-center space-x-4">
+                  <a 
+                    href="https://www.linkedin.com/company/spida-io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors duration-200"
+                  >
+                    <Linkedin className="w-5 h-5 text-primary-foreground" />
+                  </a>
+                  <a 
+                    href="https://x.com/spida_africa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors duration-200"
+                  >
+                    <svg className="w-5 h-5 text-primary-foreground" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/spida__africa/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors duration-200"
+                  >
+                    <Instagram className="w-5 h-5 text-primary-foreground" />
+                  </a>
+                  <a 
+                    href="https://www.facebook.com/spida.africa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors duration-200"
+                  >
+                    <Facebook className="w-5 h-5 text-primary-foreground" />
+                  </a>
                 </div>
               </div>
             </div>

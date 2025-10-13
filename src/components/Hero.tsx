@@ -39,6 +39,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-4 text-lg shadow-glow hover:shadow-xl transition-all duration-300"
+              onClick={() => window.location.assign('/products')}
             >
               Transform Your Farm
               <ArrowRight className="ml-2 w-5 h-5" />

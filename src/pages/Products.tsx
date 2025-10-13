@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Tractor, BarChart3, ShoppingCart, ExternalLink, CheckCircle, Zap, Shield } from "lucide-react";
+import { SEO, SEOConfigs } from "@/components/SEO";
 
 const Products = () => {
   const products = [
@@ -75,6 +76,7 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...SEOConfigs.products} />
       <Header />
       <main>
         {/* Hero Section */}
@@ -129,7 +131,7 @@ const Products = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="space-y-16">
               {products.map((product, index) => (
-                <Card key={product.name} className="border-0 shadow-elegant overflow-hidden">
+                <Card key={product.name} id={product.name.toLowerCase()} className="border-0 shadow-elegant overflow-hidden">
                   <div className={`grid md:grid-cols-2 gap-0 ${index % 2 === 1 ? 'md:grid-flow-col-dense' : ''}`}>
                     {/* Content Side */}
                     <div className={`p-8 md:p-12 ${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
@@ -188,7 +190,11 @@ const Products = () => {
                           Explore {product.name}
                           <ExternalLink className="ml-2 w-5 h-5" />
                         </Button>
-                        <Button variant="outline" size="lg">
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={() => window.open('https://calendly.com/spida-africa/demo', '_blank')}
+                        >
                           Request Demo
                           <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
@@ -236,11 +242,11 @@ const Products = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-primary hover:shadow-glow">
+                <Button size="lg" className="bg-gradient-primary hover:shadow-glow" onClick={() => window.location.assign('/#waitlist')}>
                   Start Your Journey
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="lg" onClick={() => window.open('https://calendly.com/spida-africa/consultation', '_blank')}>
                   Schedule Consultation
                 </Button>
               </div>
