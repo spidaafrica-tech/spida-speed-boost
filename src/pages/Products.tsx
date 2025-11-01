@@ -195,7 +195,7 @@ const Products = () => {
                         <Button
                           variant="outline"
                           size="lg"
-                          onClick={() => window.open('https://calendly.com/spida-africa/demo', '_blank')}
+                          onClick={() => window.open('https://calendly.com/spidaafrica/30min', '_blank')}
                         >
                           Request Demo
                           <ArrowRight className="ml-2 w-5 h-5" />
@@ -248,7 +248,7 @@ const Products = () => {
                   Start Your Journey
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => window.open('https://calendly.com/spida-africa/consultation', '_blank')}>
+                <Button variant="outline" size="lg" onClick={() => window.open('https://calendly.com/spidaafrica/30min', '_blank')}>
                   Schedule Consultation
                 </Button>
               </div>
