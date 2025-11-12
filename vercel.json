@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.spida.africa"
+        }
+      ],
+      "destination": "https://spida.africa/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/waitlist_submit.php",
