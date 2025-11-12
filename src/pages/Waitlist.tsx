@@ -159,7 +159,7 @@ const Waitlist = () => {
       <SEO 
         title="Join Our Waitlist - SPIDA Africa"
         description="Be the first to enjoy 10% discount and free delivery on your first purchase. Join SPIDA's waitlist for fresh, direct-from-farm produce in Africa."
-        keywords="SPIDA waitlist, agriculture signup, farm produce, Africa agriculture, join SPIDA"
+        keywords={["SPIDA waitlist", "agriculture signup", "farm produce", "Africa agriculture", "join SPIDA", "waitlist", "fresh produce"]}
       />
       <Header />
       
